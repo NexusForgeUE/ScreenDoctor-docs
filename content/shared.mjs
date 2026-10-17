@@ -28,10 +28,8 @@ export const firstSteps = headers => table(headers,[
   ['<code>layout.title</code>','<code>AnalyzeLayout</code>','<code>Layout.Targets[0].ScreenId = demo_menu<br>Layout.Targets[0].TestId = title</code>'],
   ['<code>capture.menu</code>','<code>CaptureCheckpoint</code>','<code>CheckpointId = menu_state<br>Compare Baseline = false<br>Timeout Seconds = 15</code>']
 ]);
-export const cli = code(`$project = 'D:\\Games\\MyGame\\MyGame.uproject'
-$engine = 'D:\\Epic\\UE_5.8'
-.\\Plugins\\ScreenDoctor\\Scripts\\Run-ScreenDoctorSuite.ps1 \
-  -ProjectFile $project -EngineRoot $engine \
-  -SuiteAsset '/Game/UITests/DA_UIFirstSuite.DA_UIFirstSuite' \
-  -Mode EditorStandalone` .replaceAll(' \\\n',' `\n'));
+export const cli = code(String.raw`$project = 'D:\Games\MyGame\MyGame.uproject'
+$editor = 'D:\Epic\UE_5.8\Engine\Binaries\Win64\UnrealEditor-Cmd.exe'
+& $editor $project -run=ScreenDoctor -Action=Run -Suite='/Game/UITests/DA_UIFirstSuite.DA_UIFirstSuite' -Mode=EditorStandalone -NullRHI -unattended`);
+export const historyCli = code(String.raw`& $editor $project -run=ScreenDoctor -Action=History -OutputRoot='D:\Games\MyGame\Saved\ScreenDoctor' -KeepLast=20 -NullRHI -unattended`);
 export const mask = code('{"schemaVersion":1,"masks":[{"name":"clock","reason":"Animated clock","x":30,"y":20,"width":160,"height":40}]}');
